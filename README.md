@@ -9,6 +9,9 @@ Aplikasi desktop sederhana berbasis Python yang digunakan untuk mencari jalur te
 - Estimasi total **biaya transportasi** (dalam Rupiah).
 - Tampilan GUI yang sederhana dan mudah digunakan.
 
+## 🖼️ Tampilan Aplikasi
+GUI dibuat menggunakan tkinter. Terdapat dua dropdown untuk memilih gedung asal dan tujuan, tombol untuk mencari jalur, dan area hasil untuk menampilkan rute, jarak, serta estimasi biaya.
+
 ## 📌 Struktur Graph
 Graph direpresentasikan dalam bentuk **adjacency list** berupa dictionary Python. Setiap simpul (gedung atau gerbang) menyimpan daftar tetangganya beserta jaraknya dalam meter.
 
@@ -21,7 +24,5 @@ Digunakan untuk menghitung semua pasangan jarak terpendek antar simpul (all-pair
 
 Matriks jarak (dist)
 
-Matriks node berikutnya (next_node) untuk rekontruksi jalur
+Matriks node berikutnya (next_node) untuk rekontruksi jalur 
 
-🖼️ Tampilan Aplikasi
-GUI dibuat menggunakan tkinter. Terdapat dua dropdown untuk memilih gedung asal dan tujuan, tombol untuk mencari jalur, dan area hasil untuk menampilkan rute, jarak, serta estimasi biaya.
