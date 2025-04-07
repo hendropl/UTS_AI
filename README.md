@@ -1,28 +1,60 @@
-# 🚀 Pencarian Jalur Terpendek Kampus UNIB (Floyd-Warshall + Tkinter GUI)
+# Aplikasi Pencarian Jalur Kampus (Floyd-Warshall GUI)
 
-Aplikasi desktop sederhana berbasis Python yang digunakan untuk mencari jalur terpendek antar titik atau gedung di Universitas Bengkulu menggunakan algoritma **Floyd-Warshall**. Hasil pencarian jalur juga dilengkapi dengan estimasi **jarak tempuh** dan **biaya transportasi**, serta ditampilkan melalui antarmuka pengguna (GUI) berbasis Tkinter.
+Aplikasi ini dibuat menggunakan Python dan pustaka tkinter, yang berfungsi untuk mencari jalur terpendek antar titik di lingkungan kampus menggunakan *algoritma Floyd-Warshall*. Hasil pencarian mencakup jalur, jarak, biaya, dan estimasi waktu tempuh berdasarkan pilihan moda transportasi.
 
-## 🧠 Fitur Utama
-- Input asal dan tujuan gedung di kampus UNIB melalui dropdown.
-- Perhitungan jalur terpendek antar gedung menggunakan algoritma **Floyd-Warshall**.
-- Estimasi total **jarak tempuh** (dalam meter).
-- Estimasi total **biaya transportasi** (dalam Rupiah).
-- Tampilan GUI yang sederhana dan mudah digunakan.
+## 📌 Fitur
 
-## 🖼️ Tampilan Aplikasi
-GUI dibuat menggunakan tkinter. Terdapat dua dropdown untuk memilih gedung asal dan tujuan, tombol untuk mencari jalur, dan area hasil untuk menampilkan rute, jarak, serta estimasi biaya.
+- Pencarian jalur terpendek dari titik awal ke tujuan
+- Menampilkan hasil:
+  - Rute/jalur
+  - Total jarak (dalam meter)
+  - Total biaya (Rp 1000 per 10 meter)
+  - Waktu tempuh (untuk jalan kaki, motor, dan mobil)
+- Antarmuka grafis (GUI) yang mudah digunakan
 
-## 📌 Struktur Graph
-Graph direpresentasikan dalam bentuk **adjacency list** berupa dictionary Python. Setiap simpul (gedung atau gerbang) menyimpan daftar tetangganya beserta jaraknya dalam meter.
+## 🧠 Algoritma yang Digunakan
 
-Contoh:
-```python
-"Pintu Gerbang Depan": [("Pasca Hukum", 200)],
-"Pasca Hukum": [("Pintu Gerbang Depan", 200), ("MAKSI (Ged C)", 400)],
-Algoritma Floyd-Warshall
-Digunakan untuk menghitung semua pasangan jarak terpendek antar simpul (all-pairs shortest path). Implementasi mencakup:
+*Floyd-Warshall*: Algoritma pencarian jalur terpendek untuk graf berbobot. Cocok digunakan untuk mencari semua jalur terpendek antara semua pasangan simpul.
 
-Matriks jarak (dist)
+## 🚀 Cara Menjalankan
 
-Matriks node berikutnya (next_node) untuk rekontruksi jalur 
+### 1. Pastikan Python sudah terinstal
+Jika belum, download dan install dari: https://www.python.org/downloads/
 
+### 2. Jalankan aplikasi
+Buka terminal/command prompt, lalu jalankan:
+bash
+python floyd_warshall_gui.py
+
+
+Atau, jika menggunakan VSCode atau PyCharm, buka file floyd_warshall_gui.py lalu klik *Run*.
+
+## 🛠️ Struktur GUI
+
+- Dua dropdown: untuk memilih titik *awal* dan *tujuan*
+- Tombol *"Cari Jalur"*: Menjalankan pencarian jalur menggunakan Floyd-Warshall
+- Label hasil: Menampilkan hasil pencarian dalam format yang mudah dibaca
+
+## 📊 Tabel Kecepatan Transportasi
+
+| Moda Transportasi | Kecepatan     |
+|-------------------|---------------|
+| Jalan Kaki        | 4 km/jam (1.11 m/s) |
+| Motor             | 60 km/jam (16.67 m/s) |
+| Mobil             | 40 km/jam (11.11 m/s) |
+
+## 📁 File Penting
+
+- floyd_warshall_gui.py: File utama yang berisi seluruh logika dan GUI aplikasi
+- README.md: Dokumentasi ini
+
+## 📝 Catatan
+
+- Pastikan semua nama titik pada graph sesuai dan tidak ada yang tertinggal.
+- Aplikasi ini berbasis lokal dan tidak memerlukan koneksi internet.
+
+## 📬 Kontak
+
+Jika ada pertanyaan atau ingin mengembangkan lebih lanjut, silakan hubungi pembuat atau kirim pesan melalui GitHub Issues (jika diunggah ke GitHub).
+
+---
