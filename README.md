@@ -1,60 +1,86 @@
-# Aplikasi Pencarian Jalur Kampus (Floyd-Warshall GUI)
+🏫 Aplikasi Pencarian Jalur Kampus UNIB (Floyd-Warshall + OSMnx)
+Aplikasi ini merupakan alat bantu pencarian rute terpendek antar gedung di kampus Universitas Bengkulu (UNIB). Dibuat menggunakan Python, algoritma Floyd-Warshall, dan pustaka visualisasi seperti Folium dan OSMnx, aplikasi ini memperhitungkan aturan akses gerbang berdasarkan waktu serta menampilkan jalur nyata sesuai peta jalan (real-road path).
 
-Aplikasi ini dibuat menggunakan Python dan pustaka tkinter, yang berfungsi untuk mencari jalur terpendek antar titik di lingkungan kampus menggunakan *algoritma Floyd-Warshall*. Hasil pencarian mencakup jalur, jarak, biaya, dan estimasi waktu tempuh berdasarkan pilihan moda transportasi.
+📌 Fitur
+Pencarian jalur terpendek berdasarkan algoritma Floyd-Warshall
 
-## 📌 Fitur
+Visualisasi peta UNIB menggunakan Folium
 
-- Pencarian jalur terpendek dari titik awal ke tujuan
-- Menampilkan hasil:
-  - Rute/jalur
-  - Total jarak (dalam meter)
-  - Total biaya (Rp 1000 per 10 meter)
-  - Waktu tempuh (untuk jalan kaki, motor, dan mobil)
-- Antarmuka grafis (GUI) yang mudah digunakan
+Rute jalan nyata berdasarkan data OpenStreetMap (via OSMnx)
 
-## 🧠 Algoritma yang Digunakan
+Estimasi waktu tempuh berdasarkan kecepatan rata-rata jalan kaki
 
-*Floyd-Warshall*: Algoritma pencarian jalur terpendek untuk graf berbobot. Cocok digunakan untuk mencari semua jalur terpendek antara semua pasangan simpul.
+Aturan akses gerbang berdasarkan waktu dan hari
 
-## 🚀 Cara Menjalankan
+Petunjuk arah berdasarkan kompas (utara, timur laut, dll.)
 
-### 1. Pastikan Python sudah terinstal
-Jika belum, download dan install dari: https://www.python.org/downloads/
+Antarmuka terminal dan output HTML interaktif
 
-### 2. Jalankan aplikasi
-Buka terminal/command prompt, lalu jalankan:
-bash
-python floyd_warshall_gui.py
+🧠 Algoritma yang Digunakan
+Floyd-Warshall: Menentukan semua pasangan jalur terpendek dalam graf berarah berbobot.
 
+OSMnx + NetworkX: Untuk menyesuaikan jalur yang realistis berdasarkan bentuk jalan di peta sebenarnya.
 
-Atau, jika menggunakan VSCode atau PyCharm, buka file floyd_warshall_gui.py lalu klik *Run*.
+🛑 Aturan Akses Gerbang
 
-## 🛠️ Struktur GUI
+Gerbang	Hari & Jam	Akses
+Gerbang Masuk Belakang	Senin–Jumat 07:00–18:00	Masuk (jalur kiri & kanan)
+Lainnya	Hanya jalur kiri bisa masuk
+Gerbang Keluar Belakang	Senin–Jumat 06:00–18:00	Keluar
+Di luar waktu tersebut	Tertutup
+Gerbang Masuk Rektorat	Setiap saat	Hanya masuk ke arah kiri
 
-- Dua dropdown: untuk memilih titik *awal* dan *tujuan*
-- Tombol *"Cari Jalur"*: Menjalankan pencarian jalur menggunakan Floyd-Warshall
-- Label hasil: Menampilkan hasil pencarian dalam format yang mudah dibaca
-
-## 📊 Tabel Kecepatan Transportasi
+# 📊 Tabel Kecepatan Transportasi
 
 | Moda Transportasi | Kecepatan     |
 |-------------------|---------------|
 | Jalan Kaki        | 4 km/jam (1.11 m/s) |
 | Motor             | 60 km/jam (16.67 m/s) |
 | Mobil             | 40 km/jam (11.11 m/s) |
+🚀 Cara Menjalankan
+1. Instalasi Python
+Pastikan Python 3 sudah terpasang. Jika belum: 📥 https://www.python.org/downloads/
 
-## 📁 File Penting
+2. Instalasi pustaka yang dibutuhkan
+Buka terminal dan jalankan:
 
-- floyd_warshall_gui.py: File utama yang berisi seluruh logika dan GUI aplikasi
-- README.md: Dokumentasi ini
+bash
+Salin
+Edit
+pip install folium osmnx geopy pytz
+3. Jalankan aplikasi
+bash
+Salin
+Edit
+python shortest_path_unib_modified.py
+🛠️ Antarmuka Aplikasi
+Terminal CLI untuk memilih gedung awal & tujuan
 
-## 📝 Catatan
+Input waktu untuk menentukan akses gerbang
 
-- Pastikan semua nama titik pada graph sesuai dan tidak ada yang tertinggal.
-- Aplikasi ini berbasis lokal dan tidak memerlukan koneksi internet.
+Visualisasi hasil berupa:
 
-## 📬 Kontak
+Jalur terpendek berdasarkan Floyd-Warshall
 
-Jika ada pertanyaan atau ingin mengembangkan lebih lanjut, silakan hubungi pembuat atau kirim pesan melalui GitHub Issues (jika diunggah ke GitHub).
+Jalur realistis berdasarkan OSMnx
 
----
+Estimasi jarak dan waktu
+
+Petunjuk arah berdasarkan arah mata angin
+
+File HTML (unib_path.html) untuk melihat rute di browser
+
+📊 Kecepatan Jalan Kaki
+
+Moda	Kecepatan
+Jalan Kaki	5 km/jam (1.4 m/s)
+📁 Struktur File Penting
+
+File	Fungsi
+shortest_path_unib_modified.py	File utama berisi logika algoritma, akses gerbang, dan visualisasi
+unib_path.html	Output visualisasi peta interaktif
+README.md	Dokumentasi aplikasi
+📝 Catatan
+Jika tidak bisa menghasilkan rute jalan realistis (karena keterbatasan data), aplikasi akan membuat jalur garis lurus sebagai alternatif.
+
+Aplikasi ini berjalan offline dan tidak membutuhkan koneksi internet, kecuali saat mengakses data peta OSM untuk pertama kali.
