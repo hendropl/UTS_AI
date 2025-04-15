@@ -77,8 +77,8 @@ File HTML (unib_path.html) untuk melihat rute di browser
 
 Moda	Kecepatan
 Jalan Kaki	5 km/jam (1.4 m/s)
-📁 Struktur File Penting
 
+📁 Struktur File Penting
 File	Fungsi
 shortest_path_unib_modified.py	File utama berisi logika algoritma, akses gerbang, dan visualisasi
 unib_path.html	Output visualisasi peta interaktif
