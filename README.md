@@ -21,14 +21,16 @@ Floyd-Warshall: Menentukan semua pasangan jalur terpendek dalam graf berarah ber
 
 OSMnx + NetworkX: Untuk menyesuaikan jalur yang realistis berdasarkan bentuk jalan di peta sebenarnya.
 
-🛑 Aturan Akses Gerbang
+## 🛑 Aturan Akses Gerbang
 
-Gerbang | Hari & Jam | Akses
-Gerbang Masuk Belakang | Senin–Jumat 07:00–18:00 | Masuk (jalur kiri & kanan)
- | Lainnya | Hanya jalur kiri bisa masuk
-Gerbang Keluar Belakang | Senin–Jumat 06:00–18:00 | Keluar
- | Di luar waktu tersebut | Tertutup
-Gerbang Masuk Rektorat | Setiap saat | Hanya masuk ke arah kiri
+| Gerbang                   | Hari & Jam                   | Akses                            |
+|---------------------------|------------------------------|----------------------------------|
+| Gerbang Masuk Belakang    | Senin–Jumat 07:00–18:00      | Masuk (jalur kiri & kanan)      |
+|                           | Sabtu–Minggu atau di luar jam tersebut | Hanya jalur kiri bisa masuk     |
+| Gerbang Keluar Belakang   | Senin–Jumat 06:00–18:00      | Keluar                           |
+|                           | Di luar waktu tersebut       | Tertutup                         |
+| Gerbang Masuk Rektorat    | Setiap saat                  | Hanya masuk ke arah kiri        |
+
 
 # 📊 Tabel Kecepatan Transportasi
 
