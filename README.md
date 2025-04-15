@@ -39,6 +39,7 @@ OSMnx + NetworkX: Untuk menyesuaikan jalur yang realistis berdasarkan bentuk jal
 | Jalan Kaki        | 4 km/jam (1.11 m/s) |
 | Motor             | 60 km/jam (16.67 m/s) |
 | Mobil             | 40 km/jam (11.11 m/s) |
+
 🚀 Cara Menjalankan
 1. Instalasi Python
 Pastikan Python 3 sudah terpasang. Jika belum: 📥 https://www.python.org/downloads/
