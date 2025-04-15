@@ -1,7 +1,7 @@
-🏫 Aplikasi Pencarian Jalur Kampus UNIB (Floyd-Warshall + OSMnx)
+##🏫 Aplikasi Pencarian Jalur Kampus UNIB (Floyd-Warshall + OSMnx)
 Aplikasi ini merupakan alat bantu pencarian rute terpendek antar gedung di kampus Universitas Bengkulu (UNIB). Dibuat menggunakan Python, algoritma Floyd-Warshall, dan pustaka visualisasi seperti Folium dan OSMnx, aplikasi ini memperhitungkan aturan akses gerbang berdasarkan waktu serta menampilkan jalur nyata sesuai peta jalan (real-road path).
 
-📌 Fitur
+##📌 Fitur
 Pencarian jalur terpendek berdasarkan algoritma Floyd-Warshall
 
 Visualisasi peta UNIB menggunakan Folium
@@ -16,7 +16,7 @@ Petunjuk arah berdasarkan kompas (utara, timur laut, dll.)
 
 Antarmuka terminal dan output HTML interaktif
 
-🧠 Algoritma yang Digunakan
+##🧠 Algoritma yang Digunakan
 Floyd-Warshall: Menentukan semua pasangan jalur terpendek dalam graf berarah berbobot.
 
 OSMnx + NetworkX: Untuk menyesuaikan jalur yang realistis berdasarkan bentuk jalan di peta sebenarnya.
@@ -40,7 +40,7 @@ OSMnx + NetworkX: Untuk menyesuaikan jalur yang realistis berdasarkan bentuk jal
 | Motor             | 60 km/jam (16.67 m/s) |
 | Mobil             | 40 km/jam (11.11 m/s) |
 
-🚀 Cara Menjalankan
+##🚀 Cara Menjalankan
 1. Instalasi Python
 Pastikan Python 3 sudah terpasang. Jika belum: 📥 https://www.python.org/downloads/
 
@@ -73,12 +73,12 @@ Petunjuk arah berdasarkan arah mata angin
 
 File HTML (unib_path.html) untuk melihat rute di browser
 
-📊 Kecepatan Jalan Kaki
+##📊 Kecepatan Jalan Kaki
 
 Moda	Kecepatan
 Jalan Kaki	5 km/jam (1.4 m/s)
 
-📁 Struktur File Penting
+##📁 Struktur File Penting
 File	Fungsi
 shortest_path_unib_modified.py	File utama berisi logika algoritma, akses gerbang, dan visualisasi
 unib_path.html	Output visualisasi peta interaktif
