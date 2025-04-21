@@ -48,3 +48,86 @@ Aplikasi ini merupakan alat bantu pencarian rute terpendek antar gedung di kampu
 # 📊 Kecepatan Jalan Kaki
 Moda | Kecepatan
 Jalan Kaki | 5 km/jam (1.4 m/s)
+
+# 🔍 Analisis Algoritma dan Arsitektur
+1. Fungsi get_gate_access
+Fungsi ini mengecek aksesibilitas gerbang kampus berdasarkan hari dan jam saat ini.
+Implementasi:
+
+Menggunakan datetime dan pytz untuk menentukan waktu lokal (Asia/Jakarta).
+
+Gerbang belakang memiliki aturan:
+
+Senin–Jumat pukul 07.00–18.00: semua gerbang aktif.
+
+Selain itu: hanya gerbang masuk belakang kiri yang aktif.
+
+⚙️ Kompleksitas Waktu: O(1) karena hanya pengecekan kondisi logika.
+
+2. Kelas GateController
+Mengatur akses gerbang secara lebih fleksibel menggunakan metode:
+
+check_back_gate_access(): akses belakang saat hari kerja dan jam tertentu.
+
+check_back_exit_access(): akses keluar belakang dalam jam yang ditentukan.
+
+check_side_gates_access(): menentukan arah masuk/keluar berdasarkan waktu.
+
+⚙️ Kompleksitas Waktu: O(1) per metode.
+
+3. Struktur Data unib_buildings
+Gedung-gedung Universitas Bengkulu disimpan dalam OrderedDict, lalu dikonversi ke dictionary berindeks numerik:
+
+python
+Salin
+Edit
+{0: {"name": "Rektorat", "lon": ..., "lat": ...}, ...}
+Hal ini mempermudah pemetaan node dalam algoritma graf.
+
+📍 Total: 47 lokasi.
+
+4. Algoritma Floyd-Warshall
+Digunakan untuk menghitung jalur terpendek antar semua pasangan node dalam graf berarah berbobot.
+
+✨ Langkah-langkah:
+Membuat matriks dist dan next_node.
+
+Mengisi jarak antar node dengan geopy.distance.geodesic().
+
+Memfilter koneksi berdasarkan akses gerbang.
+
+Melakukan iterasi tiga lapis (k, i, j) untuk memperbarui jarak terpendek.
+
+python
+Salin
+Edit
+for k in range(n):
+    for i in range(n):
+        for j in range(n):
+            if dist[i][j] > dist[i][k] + dist[k][j]:
+                dist[i][j] = dist[i][k] + dist[k][j]
+                next_node[i][j] = next_node[i][k]
+⚙️ Kompleksitas Waktu: O(n³)
+⚙️ Kompleksitas Memori: O(n²)
+Cocok untuk jumlah node kecil–menengah (<= 100).
+
+5. Fungsi reconstruct_path
+Merekonstruksi rute terpendek dari node start ke end berdasarkan hasil next_node.
+
+⚙️ Kompleksitas Waktu: O(n) dalam kasus terburuk.
+
+6. Visualisasi Peta dengan Folium
+Peta pusat diatur ke gedung Rektorat. Jalur dan node dapat divisualisasikan berdasarkan hasil algoritma:
+
+Marker tiap gedung.
+
+Garis rute antar node.
+
+💡 Catatan Tambahan
+Akses ke node (gerbang) dibatasi secara dinamis berdasarkan waktu nyata.
+
+Visualisasi dirancang untuk mendukung pengguna mencari rute tercepat antar gedung dalam kampus.
+
+Algoritma cocok untuk pengembangan navigasi kampus dan simulasi waktu nyata.
+
+
