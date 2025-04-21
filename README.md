@@ -49,93 +49,98 @@ Aplikasi ini merupakan alat bantu pencarian rute terpendek antar gedung di kampu
 Moda | Kecepatan
 Jalan Kaki | 5 km/jam (1.4 m/s)
 
-# 🔍 Analisis Algoritma dan Arsitektur
-1. Fungsi get_gate_access
+## 🔍 Analisis Algoritma dan Arsitektur
+
+### 1. Fungsi `get_gate_access`
 Fungsi ini mengecek aksesibilitas gerbang kampus berdasarkan hari dan jam saat ini.
-Implementasi:
 
-Menggunakan datetime dan pytz untuk menentukan waktu lokal (Asia/Jakarta).
+**Implementasi:**
+- Menggunakan `datetime` dan `pytz` untuk menentukan waktu lokal (`Asia/Jakarta`).
+- **Aturan gerbang belakang:**
+  - 🕒 **Senin–Jumat, 07.00–18.00:** semua gerbang aktif.
+  - 🕙 **Di luar waktu tersebut:** hanya gerbang masuk belakang **kiri** yang aktif.
 
-Gerbang belakang memiliki aturan:
+⚙️ **Kompleksitas Waktu:** `O(1)` (hanya pengecekan kondisi logika)
 
-Senin–Jumat pukul 07.00–18.00: semua gerbang aktif.
+---
 
-Selain itu: hanya gerbang masuk belakang kiri yang aktif.
+### 2. Kelas `GateController`
+Mengatur akses gerbang secara fleksibel melalui beberapa metode:
 
-⚙️ Kompleksitas Waktu: O(1) karena hanya pengecekan kondisi logika.
+- `check_back_gate_access()`: akses masuk belakang saat hari dan jam tertentu.
+- `check_back_exit_access()`: akses keluar belakang dalam jam kerja.
+- `check_side_gates_access()`: menentukan arah masuk/keluar berdasarkan waktu.
 
-2. Kelas GateController
-Mengatur akses gerbang secara lebih fleksibel menggunakan metode:
+⚙️ **Kompleksitas Waktu:** `O(1)` per metode
 
-check_back_gate_access(): akses belakang saat hari kerja dan jam tertentu.
+---
 
-check_back_exit_access(): akses keluar belakang dalam jam yang ditentukan.
+### 3. Struktur Data `unib_buildings`
+Gedung-gedung Universitas Bengkulu disimpan dalam `OrderedDict`, kemudian dikonversi menjadi dictionary berindeks numerik:
 
-check_side_gates_access(): menentukan arah masuk/keluar berdasarkan waktu.
+```python
+{
+  0: {"name": "Rektorat", "lon": ..., "lat": ...},
+  1: {"name": "Perpustakaan", "lon": ..., "lat": ...},
+  ...
+}
+```
 
-⚙️ Kompleksitas Waktu: O(1) per metode.
+📍 **Total lokasi:** 47
 
-3. Struktur Data unib_buildings
-Gedung-gedung Universitas Bengkulu disimpan dalam OrderedDict, lalu dikonversi ke dictionary berindeks numerik:
+Ini mempermudah pemetaan node dalam algoritma graf.
 
-python
-Salin
-Edit
-{0: {"name": "Rektorat", "lon": ..., "lat": ...}, ...}
-Hal ini mempermudah pemetaan node dalam algoritma graf.
+---
 
-📍 Total: 47 lokasi.
+### 4. 🚀 Algoritma Floyd-Warshall
+Digunakan untuk menghitung **jalur terpendek antar semua pasangan node** dalam graf berarah berbobot (gedung-gedung di UNIB).
 
-4. 🚀 Algoritma Floyd-Warshall
-Digunakan untuk menghitung jalur terpendek antar semua pasangan node dalam graf berarah berbobot (gedung-gedung di UNIB).
+✨ **Langkah-langkah Utama:**
+1. Inisialisasi matriks `dist` dan `next_node` berdasarkan jarak antar node.
+2. Terapkan algoritma Floyd-Warshall:
+   ```python
+   for k in range(n):
+       for i in range(n):
+           for j in range(n):
+               if dist[i][j] > dist[i][k] + dist[k][j]:
+                   dist[i][j] = dist[i][k] + dist[k][j]
+                   next_node[i][j] = next_node[i][k]
+   ```
+3. Perbarui jalur saat ditemukan rute yang lebih pendek.
 
-✨ Langkah-langkah Utama:
-Inisialisasi matriks dist dan next_node dengan jarak antar node (menggunakan jarak geodesik).
+📈 **Kompleksitas:**
+- **Waktu:** `O(n³)`
+- **Memori:** `O(n²)`
 
-Terapkan algoritma Floyd-Warshall untuk menemukan jarak terpendek.
+📌 **Cocok untuk graf berukuran kecil–menengah (≤ 100 node).**
 
-Perbarui jalur saat ditemukan rute yang lebih pendek.
+🧭 **Catatan:**
+- Cocok untuk sistem navigasi peta kampus.
+- Didukung dengan data lokasi nyata (latitude & longitude).
 
-🧠 Potongan Kode:
-python
-Salin
-Edit
-for k in range(n):
-    for i in range(n):
-        for j in range(n):
-            if dist[i][j] > dist[i][k] + dist[k][j]:
-                dist[i][j] = dist[i][k] + dist[k][j]
-                next_node[i][j] = next_node[i][k]
-📈 Kompleksitas:
-Waktu: O(n³)
+---
 
-Memori: O(n²)
+### 5. Fungsi `reconstruct_path`
+Membangun kembali rute terpendek dari node asal ke tujuan berdasarkan matriks `next_node`.
 
-Cocok untuk graf dengan jumlah node kecil–menengah (≤ 100 node).
+⚙️ **Kompleksitas Waktu:** `O(n)` (kasus terburuk)
 
-🧭 Catatan:
-Algoritma ini sangat cocok untuk sistem navigasi seperti peta kampus karena dapat memproses semua rute antar node sekaligus.
+---
 
-Didukung dengan pemetaan lokasi nyata menggunakan koordinat latitude dan longitude.
+### 6. 📍 Visualisasi Peta dengan Folium
+- Pusat peta: Gedung **Rektorat**
+- Menampilkan:
+  - Marker tiap gedung
+  - Jalur/rute antar node hasil algoritma
 
-5. Fungsi reconstruct_path
-Merekonstruksi rute terpendek dari node start ke end berdasarkan hasil next_node.
-
-⚙️ Kompleksitas Waktu: O(n) dalam kasus terburuk.
-
-6. Visualisasi Peta dengan Folium
-Peta pusat diatur ke gedung Rektorat. Jalur dan node dapat divisualisasikan berdasarkan hasil algoritma:
-
-Marker tiap gedung.
-
-Garis rute antar node.
+📷 **Contoh Visualisasi:**
 
 ![Image](https://github.com/user-attachments/assets/6adae20c-1ab9-4971-ac1d-858381b92f20)
-💡 Catatan Tambahan
-Akses ke node (gerbang) dibatasi secara dinamis berdasarkan waktu nyata.
 
-Visualisasi dirancang untuk mendukung pengguna mencari rute tercepat antar gedung dalam kampus.
+---
 
-Algoritma cocok untuk pengembangan navigasi kampus dan simulasi waktu nyata.
-
+### 💡 Catatan Tambahan
+- Akses ke node (gerbang) **dibatasi secara dinamis berdasarkan waktu nyata**.
+- Visualisasi mendukung pengguna mencari **rute tercepat antar gedung** di kampus.
+- Cocok untuk pengembangan fitur **navigasi kampus dan simulasi waktu nyata**.
 
