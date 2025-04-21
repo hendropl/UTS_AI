@@ -86,18 +86,17 @@ Hal ini mempermudah pemetaan node dalam algoritma graf.
 
 📍 Total: 47 lokasi.
 
-4. Algoritma Floyd-Warshall
-Digunakan untuk menghitung jalur terpendek antar semua pasangan node dalam graf berarah berbobot.
+4. 🚀 Algoritma Floyd-Warshall
+Digunakan untuk menghitung jalur terpendek antar semua pasangan node dalam graf berarah berbobot (gedung-gedung di UNIB).
 
-✨ Langkah-langkah:
-Membuat matriks dist dan next_node.
+✨ Langkah-langkah Utama:
+Inisialisasi matriks dist dan next_node dengan jarak antar node (menggunakan jarak geodesik).
 
-Mengisi jarak antar node dengan geopy.distance.geodesic().
+Terapkan algoritma Floyd-Warshall untuk menemukan jarak terpendek.
 
-Memfilter koneksi berdasarkan akses gerbang.
+Perbarui jalur saat ditemukan rute yang lebih pendek.
 
-Melakukan iterasi tiga lapis (k, i, j) untuk memperbarui jarak terpendek.
-
+🧠 Potongan Kode:
 python
 Salin
 Edit
@@ -107,9 +106,17 @@ for k in range(n):
             if dist[i][j] > dist[i][k] + dist[k][j]:
                 dist[i][j] = dist[i][k] + dist[k][j]
                 next_node[i][j] = next_node[i][k]
-⚙️ Kompleksitas Waktu: O(n³)
-⚙️ Kompleksitas Memori: O(n²)
-Cocok untuk jumlah node kecil–menengah (<= 100).
+📈 Kompleksitas:
+Waktu: O(n³)
+
+Memori: O(n²)
+
+Cocok untuk graf dengan jumlah node kecil–menengah (≤ 100 node).
+
+🧭 Catatan:
+Algoritma ini sangat cocok untuk sistem navigasi seperti peta kampus karena dapat memproses semua rute antar node sekaligus.
+
+Didukung dengan pemetaan lokasi nyata menggunakan koordinat latitude dan longitude.
 
 5. Fungsi reconstruct_path
 Merekonstruksi rute terpendek dari node start ke end berdasarkan hasil next_node.
