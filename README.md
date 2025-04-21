@@ -123,6 +123,7 @@ Marker tiap gedung.
 
 Garis rute antar node.
 
+![Image](https://github.com/user-attachments/assets/6adae20c-1ab9-4971-ac1d-858381b92f20)
 💡 Catatan Tambahan
 Akses ke node (gerbang) dibatasi secara dinamis berdasarkan waktu nyata.
 
